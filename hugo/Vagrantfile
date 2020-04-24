@@ -1,0 +1,37 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "launchquickly/focal64"
+  config.vm.box_version = "0.0.3"
+
+  config.vm.hostname = "hugo"
+  
+  config.vm.network "public_network", ip: "192.168.0.121"
+
+  config.ssh.insert_key = false
+  config.ssh.private_key_path = ['~/.vagrant.d/insecure_private_key', '../keys/id_rsa_hugo']
+
+  config.vm.provision "file", source: "../keys/id_rsa_hugo.pub", destination: "~/.ssh/authorized_keys"
+
+  config.vm.provision "shell", inline: <<-SHELL
+      wget https://github.com/gohugoio/hugo/releases/download/v0.69.1/hugo_0.69.1_Linux-64bit.deb
+
+      dpkg -i hugo_0.69.1_Linux-64bit.deb
+
+      rm hugo_0.69.1_Linux-64bit.deb
+  SHELL
+
+  # Run as unpriviliged user to configure for 'vagrant' user
+  # https://gohugo.io/getting-started/quick-start/
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+     hugo new site quickstart
+     cd quickstart
+     git init
+     git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
+     echo 'theme = "ananke"' >> config.toml
+     hugo new posts/my-first-post.md
+     #hugo server -D --bind=0.0.0.0 --baseURL=http://192.168.0.121:1313
+   SHELL
+
+end
