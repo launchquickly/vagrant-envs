@@ -1,4 +1,4 @@
-Host focal64
+Host focal64.local
   HostName 192.168.0.120
   User vagrant
   Port 22
@@ -6,5 +6,16 @@ Host focal64
   StrictHostKeyChecking no
   PasswordAuthentication no
   IdentityFile /home/vagrant/.ssh/id_rsa_focal64
+  IdentitiesOnly yes
+  LogLevel FATAL
+
+Host hugo.local
+  HostName 192.168.0.121
+  User vagrant
+  Port 22
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile /home/vagrant/.ssh/id_rsa_hugo
   IdentitiesOnly yes
   LogLevel FATAL
