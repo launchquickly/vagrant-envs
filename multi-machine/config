@@ -1,0 +1,10 @@
+Host web.local
+  HostName 192.168.205.20
+  User vagrant
+  Port 22
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile /home/vagrant/.ssh/id_rsa_web
+  IdentitiesOnly yes
+  LogLevel FATAL
