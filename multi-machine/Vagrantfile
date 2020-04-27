@@ -50,6 +50,19 @@ Vagrant.configure("2") do |config|
     web.ssh.private_key_path = ['~/.vagrant.d/insecure_private_key', './keys/id_rsa_web']
 
     web.vm.provision "file", source: "./keys/id_rsa_web.pub", destination: "~/.ssh/authorized_keys"
+
+    web.vm.provision "shell", privileged: false, inline: <<-SHELL
+      mkdir -p /home/vagrant/www/html
+    SHELL
+
+    web.vm.provision "shell", inline: <<-SHELL
+      apt-get install -y apache2
+
+      rm -rf /var/www
+      ln -fs /home/vagrant/www /var/www
+    SHELL
+
+    web.vm.provision "file", source: "./index.html", destination: "/home/vagrant/www/html/index.html"
   end
 
 end
