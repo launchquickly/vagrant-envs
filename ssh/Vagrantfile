@@ -1,0 +1,10 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "launchquickly/focal64"
+  config.vm.box_version = "0.0.3"
+
+  # Set-up SSH agent forwarding
+  config.ssh.forward_agent = true
+end
