@@ -1,11 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.require_version ">= 2.2.7"
+Vagrant.require_version ">= 2.2.9"
 
 Vagrant.configure("2") do |config|
   config.vm.box = "launchquickly/focal64"
-  config.vm.box_version = "0.0.3"
+  config.vm.box_version = "0.0.4"
 
   config.vm.hostname = "hugo"
   
@@ -34,6 +34,6 @@ Vagrant.configure("2") do |config|
      echo 'theme = "ananke"' >> config.toml
      hugo new posts/my-first-post.md
      #hugo server -D --bind=0.0.0.0 --baseURL=http://192.168.0.121:1313
-   SHELL
+  SHELL
 
 end
